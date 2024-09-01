@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/AT_PT_Report/static/css/main.703dd2cd.css",
+    "main.js": "/AT_PT_Report/static/js/main.ab7e34d3.js",
+    "index.html": "/AT_PT_Report/index.html",
+    "main.703dd2cd.css.map": "/AT_PT_Report/static/css/main.703dd2cd.css.map",
+    "main.ab7e34d3.js.map": "/AT_PT_Report/static/js/main.ab7e34d3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.703dd2cd.css",
+    "static/js/main.ab7e34d3.js"
+  ]
+}
