@@ -1,7 +1,7 @@
 {
   "name": "at_pt_report",
   "version": "0.1.0",
-  "homepage": "https://kieran-mahon.github.io/AT_PT_Viewer/",
+  "homepage": "https://kieran-mahon.github.io/AT_PT_Report/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
