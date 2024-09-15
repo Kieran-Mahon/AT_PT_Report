@@ -17,10 +17,4 @@ export default function Map({ passedFunction }) {
       {passedFunction()}
     </MapContainer>
   );
-  /*  Google Map Layer
-      <TileLayer
-        url={`http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}`}
-        subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
-      />
-  */
 };
