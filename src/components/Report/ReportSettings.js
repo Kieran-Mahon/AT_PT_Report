@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import RouteDropdown from '../Dropdowns/RouteDropdown';
+import DayDropdown from '../Dropdowns/DayDropdown';
+import HourDropdown from '../Dropdowns/HourDropdown';
 
 export default function ReportSettings({ GenerateMapReport }) {
   //Get list of routes
@@ -31,14 +33,11 @@ export default function ReportSettings({ GenerateMapReport }) {
 
   //Report settings
   const [route, setRoute] = useState(null);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
-  const [minSpeed, setMinSpeed] = useState(null);
+  const [day, setDay] = useState(null);
+  const [hour, setHour] = useState(null);
 
-  const PassValuesUp = () => {
-    GenerateMapReport(route, startDate, endDate, startTime, endTime, minSpeed);
+  const OnGenerateClick = () => {
+    GenerateMapReport(route, day, hour);
   }
 
   return (
@@ -47,35 +46,23 @@ export default function ReportSettings({ GenerateMapReport }) {
         <h5>Route</h5>
         <RouteDropdown dropdownSelectHandle={ eventKey => setRoute(eventKey) } routes={ routes } routeIDs={ routeIDs } />
         <br />
+        <br />
 
         <div className="reports-container row">
           <div className='col-md-6'>
-            <h5>Start Date</h5>
-            <input type="date" onInput={ e => setStartDate(e.target.value) }/>
+            <h5>Day</h5>
+            <DayDropdown dropdownSelectHandle={ eventKey => setDay(eventKey) }/>
           </div>
           <div className='col-md-6'>
-            <h5>End Date</h5>
-            <input type="date" onInput={ e => setEndDate(e.target.value) }/>
-          </div>
-
-          <div className='col-md-6'>
-            <h5>Start Time</h5>
-            <input type="time" onInput={ e => setStartTime(e.target.value) }/>
-          </div>
-          <div className='col-md-6'>
-            <h5>End Time</h5>
-            <input type="time" onInput={ e => setEndTime(e.target.value) }/>
+            <h5>Hour</h5>
+            <HourDropdown dropdownSelectHandle={ eventKey => setHour(eventKey) }/>
           </div>
         </div>
 
         <br />
-        <h5>Minimum Speed Threshold</h5>
-        <input type="number" defaultValue="0" onInput={ e => setMinSpeed(e.target.value) }/>
-      
-        <br />
         <br />
         <h5>Generate Report</h5>
-        <button type="button" class="btn btn-primary" onClick={ PassValuesUp }>Generate</button>
+        <button type="button" className="btn btn-primary" onClick={ OnGenerateClick }>Generate</button>
     </>
   );
 };

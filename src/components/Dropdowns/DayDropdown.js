@@ -21,12 +21,12 @@ const filter = React.forwardRef(({ children, style, className }, ref) => {
   },
 );
 
-export default function RouteDropdown({ dropdownSelectHandle, routes, routeIDs }) {
+export default function DayDropdown({ dropdownSelectHandle }) {
   //Currently selected value text and handle injection
   const [currentSelected, setCurrentSelected] = useState("");
   
   const injectedSelectHandle = (eventKey) => {
-    //Divide the event key (first part is route name, second is route ID)
+    //Divide the event key (first part is day as text, second is day as an int where 0 = Monday and 6 = Sunday)
     let keys = eventKey.split(',');
 
     //Update selected value
@@ -36,28 +36,29 @@ export default function RouteDropdown({ dropdownSelectHandle, routes, routeIDs }
     dropdownSelectHandle(keys[1]);
   }
 
-  //Build dropdown items from route details
-  let dropdowns = [];
-  for (let i = 0; i < routeIDs.length; i++) {
-    dropdowns.push(
-      <Dropdown.Item eventKey={routes[routeIDs[i]].route_short_name + ',' + routeIDs[i]} key={routeIDs[i]}>
-        {routes[routeIDs[i]].route_short_name}
+  //Build days list
+  let dayValues = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  let days = [];
+  for (let i = 0; i < dayValues.length; i++) {
+    days.push(
+      <Dropdown.Item eventKey={dayValues[i] + ',' + i} key={dayValues[i]}>
+        {dayValues[i]}
       </Dropdown.Item>
     );
   }
-
+  
   return (
     <>
       <Dropdown onSelect={injectedSelectHandle}>
         <Dropdown.Toggle id="route-select-dropdown" style={{width: '135px'}}>
           {currentSelected === "" ? (
-            'Select Route'
+            'Select Day'
           ) : (
             currentSelected
           )}
         </Dropdown.Toggle>
         <Dropdown.Menu style={{zIndex: 1001}} as={filter}> 
-          {dropdowns}
+          {days}
         </Dropdown.Menu>
       </Dropdown>
     </>

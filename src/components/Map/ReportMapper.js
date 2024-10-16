@@ -2,21 +2,23 @@ import React from 'react';
 import { Polyline } from 'react-leaflet';
 import VehiclePopUp from './RoadPopUp';
 
-export default function ReportMapper({ data }) {
+export default function ReportMapper({ response }) {
   //Return if no road data
-  if (!data) return null;
+  if (!response) return null;
 
   //Start to add the return JSX
   let returnJSX = [];
-  for (let i = 0; i < data.roads.length; i++) {
-    let r = data.roads[i];
-    var cords = [[r.nodeA.latitude, r.nodeA.longitude], [r.nodeB.latitude, r.nodeB.longitude]];
-    var color = GetRoadColor(r.speed, r.maxSpeed);
-    returnJSX.push(<>
-      <Polyline key={ i } positions={ cords } color={ color } weight={ 5 }>
-        <VehiclePopUp road={ r } />
+  for (let i = 0; i < response.length; i++) {
+    let r = response[i];
+    var cords = [[r.latA, r.lonA], [r.latB, r.lonB]];
+    var avgSpeed = r.sumSpeed / r.dataCount;
+    var color = GetRoadColor(avgSpeed, r.maxSpeed);
+
+    returnJSX.push(
+      <Polyline key={ i } positions={ cords } pathOptions={{ color }} weight={ 5 }>
+        <VehiclePopUp road={ r }/>
       </Polyline>
-    </>);
+    );
   }
 
   //Return the route JSX
@@ -44,5 +46,5 @@ function GetRoadColor(speed, maxSpeed) {
 
   //Lerp the colour the between the two colours and return it
   let newColor = [rgba1[0] + (rgba2[0] - rgba1[0]) * sp, rgba1[1] + (rgba2[1] - rgba1[1]) * sp, rgba1[2] + (rgba2[2] - rgba1[2]) * sp, rgba1[3] + (rgba2[3] - rgba1[3]) * sp];
-  return `rgba(${newColor[0]}, ${newColor[1]}, ${newColor[2]}, ${newColor[3]})`;
+  return `rgba(${Math.round(newColor[0])}, ${Math.round(newColor[1])}, ${Math.round(newColor[2])}, ${Math.round(newColor[3])})`;
 }

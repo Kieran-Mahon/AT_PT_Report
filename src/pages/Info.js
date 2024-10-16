@@ -5,19 +5,22 @@ export default function Info() {
     <Container style={{ paddingTop: '10px' }}>
       <h2>What is this?</h2>
       <p>
-        This is a React-based website which generates reports of vehicle data from Auckland Transport (AT)'s network. The data is
-        sourced from AT's public API and route data is sourced from OpenStreetMap's public API.
+        This is a React-based website which generates reports of vehicle data from Auckland Transport (AT)'s network. The speed 
+        data is sourced from AT's public API and route data is sourced from OpenStreetMap's public API.
       </p>
 
       <h2>Limitations</h2>
       <ul>
         <li>
+          <b>Collection of data -</b> Data is collected every 30 seconds which means a slideshow of the vehicle's speed is collected.
+          To fix this the data is averaged out over the data's hour.
         </li>
       </ul>
       
       <h2>Pages</h2>
       <ul>
         <li>
+          <b>Reports -</b> Reports is a report creation tool which allows viewing of the speed data.
         </li>
       </ul>
 

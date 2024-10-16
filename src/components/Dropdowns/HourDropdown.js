@@ -21,12 +21,12 @@ const filter = React.forwardRef(({ children, style, className }, ref) => {
   },
 );
 
-export default function RouteDropdown({ dropdownSelectHandle, routes, routeIDs }) {
+export default function HourDropdown({ dropdownSelectHandle }) {
   //Currently selected value text and handle injection
   const [currentSelected, setCurrentSelected] = useState("");
   
   const injectedSelectHandle = (eventKey) => {
-    //Divide the event key (first part is route name, second is route ID)
+    //Divide the event key (first part is hour as text, second is hour as an int where 0 = 5 AM all the way to 22 = 3 AM)
     let keys = eventKey.split(',');
 
     //Update selected value
@@ -36,28 +36,29 @@ export default function RouteDropdown({ dropdownSelectHandle, routes, routeIDs }
     dropdownSelectHandle(keys[1]);
   }
 
-  //Build dropdown items from route details
-  let dropdowns = [];
-  for (let i = 0; i < routeIDs.length; i++) {
-    dropdowns.push(
-      <Dropdown.Item eventKey={routes[routeIDs[i]].route_short_name + ',' + routeIDs[i]} key={routeIDs[i]}>
-        {routes[routeIDs[i]].route_short_name}
+  //Build hour list
+  let hourValues = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'];
+  let hours = [];
+  for (let i = 0; i < hourValues.length; i++) {
+    hours.push(
+      <Dropdown.Item eventKey={hourValues[i] + ',' + i} key={hourValues[i]}>
+        {hourValues[i]}
       </Dropdown.Item>
     );
   }
-
+  
   return (
     <>
       <Dropdown onSelect={injectedSelectHandle}>
         <Dropdown.Toggle id="route-select-dropdown" style={{width: '135px'}}>
           {currentSelected === "" ? (
-            'Select Route'
+            'Select Hour'
           ) : (
             currentSelected
           )}
         </Dropdown.Toggle>
         <Dropdown.Menu style={{zIndex: 1001}} as={filter}> 
-          {dropdowns}
+          {hours}
         </Dropdown.Menu>
       </Dropdown>
     </>
