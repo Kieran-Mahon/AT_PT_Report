@@ -23,7 +23,7 @@ export default function Reports({ routes, routeIDs }) {
       setError(null);
     }
 
-    await fetch('https://at-pt-report-backend-m2ao84298-kieranmahons-projects.vercel.app/road-data?route=' + encodeURIComponent(route) + '&day=' + encodeURIComponent(day) + '&hour=' + encodeURIComponent(hour), {
+    await fetch('https://at-pt-report-backend.vercel.app/road-data?route=' + encodeURIComponent(route) + '&day=' + encodeURIComponent(day) + '&hour=' + encodeURIComponent(hour), {
       method: 'GET',
       headers: {
         'Cache-Control': 'no-cache',
