@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import Map from '../components/Map/Map';
 import ReportMapper from '../components/Map/ReportMapper';
 import ReportSettings from '../components/Report/ReportSettings';
+import ReportError from '../components/Report/ReportError';
 
 export default function Reports({ routes, routeIDs }) {
   //Error handling for user input
@@ -17,7 +18,7 @@ export default function Reports({ routes, routeIDs }) {
   const GenerateMapReport = async (route, day, hour) => {
     //Make sure user input is valid
     if ((route == null) || (day == null) || (hour == null)) {
-      setError("Error! Make sure you click a route, day, and hour!");
+      setError("Make sure you click a route, day, and hour!");
       return;
     } else if (error !== null) {
       setError(null);
@@ -34,12 +35,15 @@ export default function Reports({ routes, routeIDs }) {
       //Show warning message if missing
       console.log(response)
       if (response.length === 0) {
-        setError("Warning! No data found!");
+        setError("No data found!");
       }
       
       setMapReport(<ReportMapper response={ response } />);
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log(error);
+      setError("Error when requesting data!");
+    })
   }
 
   const mapInjection = () => {
@@ -55,9 +59,7 @@ export default function Reports({ routes, routeIDs }) {
           </div>
           <div className='col-md-4'>
             <ReportSettings GenerateMapReport={ GenerateMapReport } />
-            <br />
-
-            {error != null && error}
+            {error != null && <ReportError message={ error }/>}
           </div>
         </div>
       </Container>

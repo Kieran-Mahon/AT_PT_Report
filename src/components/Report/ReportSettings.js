@@ -53,7 +53,7 @@ export default function ReportSettings({ GenerateMapReport }) {
             <h5>Day</h5>
             <DayDropdown dropdownSelectHandle={ eventKey => setDay(eventKey) }/>
           </div>
-          <div className='col-md-6'>
+          <div className='col-md-6 justify-content-center'>
             <h5>Hour</h5>
             <HourDropdown dropdownSelectHandle={ eventKey => setHour(eventKey) }/>
           </div>
